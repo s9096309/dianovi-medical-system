@@ -5,8 +5,6 @@ from typing import List
 from .. import models, schemas
 from ..database import SessionLocal, engine
 
-# Create the 'patients' table in the database if it doesn't exist
-models.Base.metadata.create_all(bind=engine)
 
 router = APIRouter(
     prefix="/api/v1/patients",
