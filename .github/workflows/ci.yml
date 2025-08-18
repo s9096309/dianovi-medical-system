@@ -39,7 +39,7 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    needs: lint # This job will only run if the 'lint' job succeeds
+    needs: lint
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,11 +50,12 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r backend-api/requirements.txt && pip install pytest
+        # Also install pytest from requirements
+        run: pip install -r backend-api/requirements.txt
 
       - name: Run tests with pytest
-        # In a real project, you would have a 'tests/' folder here
-        run: echo "No tests configured yet, but this step would run them."
+        # Tell pytest to look for tests in the backend-api directory
+        run: pytest backend-api/
 
   # Build the Docker image to ensure it works
   build:

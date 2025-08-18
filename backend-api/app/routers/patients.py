@@ -100,3 +100,13 @@ def delete_patient(patient_id: str, db: Session = Depends(get_db)):
     db.delete(db_patient)
     db.commit()
     return {"ok": True}  # Return empty response
+
+router.post("/{patient_id}/records", status_code=status.HTTP_201_CREATED)
+def add_medical_records_for_patient(patient_id: str, records: dict):
+    """
+    Adds new medical records for a specific patient.
+    For this prototype, we'll just print the received data.
+    In a real app, this would save the records to the database.
+    """
+    print(f"Received records for patient {patient_id}: {records}")
+    return {"status": f"Records received for patient {patient_id}"}

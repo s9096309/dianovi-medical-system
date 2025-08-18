@@ -1,0 +1,24 @@
+{
+    "P001": [
+        {
+            "record_id": "REC-001A",
+            "date": "2025-08-15",
+            "type": "diagnosis",
+            "details": "Acute bronchitis"
+        },
+        {
+            "record_id": "REC-001B",
+            "date": "2025-08-15",
+            "type": "prescription",
+            "details": "Amoxicillin 500mg"
+        }
+    ],
+    "P002": [
+        {
+            "record_id": "REC-002A",
+            "date": "2025-08-12",
+            "type": "lab_result",
+            "details": "Blood glucose: 95 mg/dL"
+        }
+    ]
+}
