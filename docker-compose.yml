@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # The PostgreSQL Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: dianovi_db
+    environment:
+      - POSTGRES_USER=dianovi
+      - POSTGRES_PASSWORD=supersecret
+      - POSTGRES_DB=dianovi_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432" # Expose db port to host for debugging if needed
+    restart: unless-stopped
+
+  # The Python Backend API Service
+  # The Python Backend API Service
+  api:
+    build: ./backend-api
+    container_name: dianovi_api
+    ports:
+      - "8000:8000"
+    # volumes:
+    #   - ./backend-api/app:/app
+    depends_on:
+      - db
+    environment:
+      # ADD THIS LINE
+      - DATABASE_URL=postgresql://dianovi:supersecret@db/dianovi_db
+      - API_BASE_URL=http://api:8000
+      - MAX_RETRIES=15
+    restart: unless-stopped
+
+  # The Frontend UI Service
+  ui:
+    build: ./doctor-ui
+    container_name: dianovi_ui
+    ports:
+      - "8080:80" # Nginx runs on port 80 in the container
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

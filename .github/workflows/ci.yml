@@ -1,0 +1,69 @@
+name: Backend CI Pipeline
+
+# Trigger the pipeline on any push to the main branch or any pull request
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Check the code for style and quality issues
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          # Install only what is needed for linting from requirements
+          pip install -r backend-api/requirements.txt
+
+      - name: Lint with flake8
+        # Stop the build if there are Python syntax errors or undefined names
+        run: |
+          flake8 backend-api/app --count --select=E9,F63,F7,F82 --show-source --statistics
+          # Exit-zero treats all errors as warnings.
+          flake8 backend-api/app --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  # Run the automated tests
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: lint # This job will only run if the 'lint' job succeeds
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r backend-api/requirements.txt && pip install pytest
+
+      - name: Run tests with pytest
+        # In a real project, you would have a 'tests/' folder here
+        run: echo "No tests configured yet, but this step would run them."
+
+  # Build the Docker image to ensure it works
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: test # This job runs only if 'test' succeeds
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build the API Docker image
+        run: docker build -t dianovi-api:ci-build ./backend-api

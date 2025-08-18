@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor UI - dianovi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Patient Dashboard</h1>
+    </header>
+
+    <section class="form-container">
+        <h2>Add New Patient</h2>
+        <form id="add-patient-form">
+            <input type="text" id="patient-id" placeholder="Patient ID (e.g., P003)" required>
+            <input type="text" id="patient-name" placeholder="Full Name" required>
+            <input type="date" id="patient-dob" required>
+            <button type="submit">Add Patient</button>
+        </form>
+    </section>
+
+    <main id="patient-list-container">
+        </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
