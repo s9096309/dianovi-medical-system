@@ -58,7 +58,15 @@ Once the containers are up, you can access the different parts of the system fro
     * *A simple endpoint to confirm the API is running.*
 
 ---
+---
 
+## Architecture
+
+A detailed description of the system architecture, components, and design decisions can be found in our architecture document:
+
+* **[Detailed Architecture Overview](ARCHITECTURE.md)**
+
+---
 ## Project Structure
 
 The project is organized into several services:
