@@ -3,10 +3,11 @@
 Dieses Dokument beschreibt die vorgeschlagene Systemarchitektur für die Aufnahme, Verarbeitung und Darstellung von Patientendaten und Behandlungsempfehlungen.
 
 ### Zentrales Architekturdiagramm
-``
+
 
 Das System ist als **modularer Monolith** konzipiert, um eine schnelle Entwicklung und einfache Wartung zu Beginn zu ermöglichen, während es für zukünftiges Wachstum skalierbar bleibt.
 
+![System Architecture Diagram](assets/architecture-diagram.png)
 
 *Hinweis: Dieses Diagramm visualisiert den unten beschriebenen Datenfluss.*
 
